@@ -1,0 +1,115 @@
+{
+    "name": "vscode-translate-deepl",
+    "displayName": "Translate with DeepL",
+    "description": "Translate text using the unofficial DeepL API",
+    "version": "1.0.0",
+    "license": "MIT",
+    "publisher": "thomask77",
+    "homepage": "https://github.com/thomask77/vscode-translate-deepl",
+    "bugs": {
+        "url": "https://github.com/thomask77/vscode-translate-deepl/issues"
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/thomask77/vscode-translate-deepl"
+    },
+    "categories": [
+        "Other"
+    ],
+    "keywords": [
+        "DeepL",
+        "Translate",
+        "Translation",
+        "Translator"
+    ],
+    "engines": {
+        "vscode": "^1.15.1"
+    },
+    "activationEvents": [
+        "onCommand:translate-deepl"
+    ],
+    "main": "./out/src/extension",
+    "contributes": {
+        "commands": [
+            {
+                "command": "translate-deepl",
+                "title": "Translate selection with DeepL"
+            }
+        ],
+        "menus": {
+            "editor/context": [
+                {
+                    "when": "editorHasSelection",
+                    "command": "translate-deepl",
+                    "group": "1_modification"
+                }
+            ]
+        },
+        "configuration": {
+            "type": "object",
+            "title": "Translate with DeepL",
+            "properties": {
+                "translate-deepl.wrapMargin": {
+                    "description": "Word wrap margin (0 to disable)",
+                    "type": "number",
+                    "default": 72
+                },
+                "translate-deepl.targetLang": {
+                    "description": "Language to translate to",
+                    "type": "string",
+                    "enum": [
+                        "DE",
+                        "EN",
+                        "FR",
+                        "ES",
+                        "IT",
+                        "PL"
+                    ],
+                    "default": "EN"
+                },
+                "translate-deepl.userPreferredLangs": {
+                    "description": "Languages you speak (for translating back and forth)",
+                    "type": "array",
+                    "items": {
+                        "type": "string",
+                        "enum": [
+                            "DE",
+                            "EN",
+                            "FR",
+                            "ES",
+                            "IT",
+                            "PL"
+                        ]
+                    },
+                    "default": [
+                        "EN",
+                        "DE"
+                    ]
+                },
+                "translate-deepl.timeoutMs": {
+                    "description": "HTTP request timeout in milliseconds",
+                    "type": "number",
+                    "default": 10000
+                }
+            }
+        }
+    },
+    "scripts": {
+        "vscode:prepublish": "npm run compile",
+        "compile": "tsc -p ./",
+        "watch": "tsc -watch -p ./",
+        "postinstall": "node ./node_modules/vscode/bin/install"
+    },
+    "devDependencies": {
+        "typescript": "^2.5.2",
+        "vscode": "^1.1.5",
+        "@types/node": "^7.0.43",
+        "@types/request-promise-native": "^1.0.7"
+    },
+    "dependencies": {
+        "request": "^2.82.0",
+        "request-promise-native": "^1.0.4",
+        "require": "^2.4.20",
+        "wordwrap": "^1.0.0"
+    }
+}
